@@ -10,15 +10,13 @@ public:
 	Cell();
 	~Cell();
 
-	Cell(int val);
+	explicit Cell(int val);
 	
-	int value;
-	CellGroup* groups[3] = {};
 
 	void updatePossibleValues();
 	bool tryUpdateValue();
 
-	friend std::ostream& operator<<(std::ostream& os, Cell &cell) {
+	friend std::ostream& operator<<(std::ostream& os, static Cell &cell) {
 		os << cell.value;
 		os << "=> {";
 		for (int j = 0; j < 9; j++) {
@@ -29,7 +27,13 @@ public:
 		return os;
 	}
 
+	void setCellGroup(const int i, const CellGroup* cg);
+	void setValue(int i);
+	int getValue() const;
+
 private:
+	int value;
+	const CellGroup* groups[3] = {};
 	bool possibleValues[9] = {true,true,true,
 							  true,true,true,
 							  true,true,true};

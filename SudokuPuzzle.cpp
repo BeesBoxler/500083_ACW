@@ -18,10 +18,12 @@ SudokuPuzzle::SudokuPuzzle() {
 }
 
 
+
+
 void SudokuPuzzle::solve(const char filenameIn[]) {
 	for (int n = 0; n < 15; n++) {
-	// Read puzzle from text file
-	readPuzzle(filenameIn);
+		// Read puzzle from text file
+		readPuzzle(filenameIn);
 
 		// Get start time
 		const auto startTime = std::chrono::high_resolution_clock::now();
@@ -49,19 +51,19 @@ void SudokuPuzzle::readPuzzle(const char filenameIn[]) {
 
 	std::ifstream file(filenameIn);
 	if (file.good()) {
+		int in;
 		for (int i = 0; i < 81; i++) {
-			int in;
 			file >> in;
 			Cell* c = new Cell(in);
 			cells[i] = c;
-			int rowIndex = i / 9;
-			int colIndex = i % 9;
-			int blockIndex = CellGroup::GetBlockNumber(colIndex, rowIndex);
-			int blockSpaceIndex = colIndex % 3 + rowIndex % 3 * 3;
+			const int rowIndex = i / 9;
+			const int colIndex = i % 9;
+			const int blockIndex = CellGroup::GetBlockNumber(colIndex, rowIndex);
+			const int blockSpaceIndex = colIndex % 3 + rowIndex % 3 * 3;
 
-			c->groups[0] = rows[rowIndex];
-			c->groups[1] = cols[colIndex];
-			c->groups[2] = blocks[blockIndex];
+			c->setCellGroup(0, rows[rowIndex]);
+			c->setCellGroup(1, cols[colIndex]);
+			c->setCellGroup(2, blocks[blockIndex]);
 
 			rows[rowIndex]->cells[colIndex] = c;
 			cols[colIndex]->cells[rowIndex] = c;
@@ -70,9 +72,9 @@ void SudokuPuzzle::readPuzzle(const char filenameIn[]) {
 	}
 }
 
-bool SudokuPuzzle::solved() {
+bool SudokuPuzzle::solved() const {
 	for (int i = 0; i < 81; i++) {
-		if (cells[i]->value == 0)
+		if (cells[i]->getValue() == 0)
 			return false;
 	}
 	return true;

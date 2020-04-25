@@ -34,3 +34,15 @@ void Cell::updatePossibleValues() {
 	}
 
 }
+
+void Cell::setCellGroup(const int i, const CellGroup* cg) {
+	groups[i] = cg;
+}
+
+void Cell::setValue(const int i) {
+	value = i;
+}
+
+int Cell::getValue() const{
+	return value;
+}

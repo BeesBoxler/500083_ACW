@@ -4,11 +4,10 @@ class Cell;
 class CellGroup
 {
 public:
+	CellGroup() {};
+	~CellGroup();
 
 	Cell* cells[9] = {};
-
-	bool isValid();
-
 	static int GetBlockNumber(int col, int row);
 
 };

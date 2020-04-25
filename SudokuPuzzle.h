@@ -6,21 +6,16 @@
 class SudokuPuzzle {
 public:
 	SudokuPuzzle();
+	~SudokuPuzzle();
 
 	void solve (const char filenameIn[]);
 
-	CellGroup* rows[9];
-	CellGroup* cols[9];
-	CellGroup* blocks[9];
+	bool solved() const;
 
-	Cell* cells[81];
-
-	bool solved();
-
-	friend std::ostream& operator<<(std::ostream& os, SudokuPuzzle p) {
+	friend std::ostream& operator<<(std::ostream& os, const SudokuPuzzle p) {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				os << p.rows[i]->cells[j]->value << " ";
+				os << p.rows[i]->cells[j]->getValue() << " ";
 			}
 			os << "\b" << std::endl;
 		}
@@ -28,6 +23,12 @@ public:
 	}
 
 private:
+	CellGroup* rows[9];
+	CellGroup* cols[9];
+	CellGroup* blocks[9];
+
+	Cell* cells[81] = {};
+
 	void output() const;
 
 	void readPuzzle(const char filenameIn[]);
