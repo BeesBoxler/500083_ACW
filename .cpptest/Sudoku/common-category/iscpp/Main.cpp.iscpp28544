@@ -1,0 +1,6 @@
+fileName=C:\Users\User\Source\Repos\500083_ACW\Main.cpp
+isCpp=
+compilerOpts=-I"C:\Program Files (x86)\Parasoft\C++test for Visual Studio\10.4\engine\runtime\include" /Zi /W3 /O2 /EHsc /MD /fp:precise /Gd /GS /Oi /Oy- /Gm- /Gy /DWIN32 /DNDEBUG /D_CONSOLE /D_UNICODE /DUNICODE /Zc:wchar_t /Zc:forScope /Zc:inline /WX- /nologo /FC /diagnostics:classic -DPARASOFT_CPPTEST -I.
+compilerId=vc_14_1
+workingDir=C:\Users\User\Source\Repos\500083_ACW\
+advancedOptionsHash=0

@@ -17,6 +17,13 @@ SudokuPuzzle::SudokuPuzzle() {
 	}
 }
 
+SudokuPuzzle::~SudokuPuzzle()
+{
+	for (int i = 0; i < 81; i++) {
+		cells[i] = nullptr;
+	}
+}
+
 
 
 
@@ -28,6 +35,7 @@ void SudokuPuzzle::solve(const char filenameIn[]) {
 		// Get start time
 		const auto startTime = std::chrono::high_resolution_clock::now();
 		while (!solved()) {
+
 			for (int i = 0; i < 81; i++) {
 				cells[i]->updatePossibleValues();
 				cells[i]->tryUpdateValue();
@@ -36,7 +44,6 @@ void SudokuPuzzle::solve(const char filenameIn[]) {
 		// Get end time
 		const auto endTime = std::chrono::high_resolution_clock::now();
 		const auto duration = (endTime - startTime).count();
-
 		// Sample timing output in nanoseconds
 		std::cout << duration << "ns" << std::endl;
 	}
@@ -54,7 +61,7 @@ void SudokuPuzzle::readPuzzle(const char filenameIn[]) {
 		int in;
 		for (int i = 0; i < 81; i++) {
 			file >> in;
-			Cell* c = new Cell(in);
+			Cell* const c = new Cell(in);
 			cells[i] = c;
 			const int rowIndex = i / 9;
 			const int colIndex = i % 9;
@@ -65,9 +72,9 @@ void SudokuPuzzle::readPuzzle(const char filenameIn[]) {
 			c->setCellGroup(1, cols[colIndex]);
 			c->setCellGroup(2, blocks[blockIndex]);
 
-			rows[rowIndex]->cells[colIndex] = c;
-			cols[colIndex]->cells[rowIndex] = c;
-			blocks[blockIndex]->cells[blockSpaceIndex] = c;
+			rows[rowIndex]->setCell(colIndex,c);
+			cols[colIndex]->setCell(rowIndex, c);
+			blocks[blockIndex]->setCell(blockSpaceIndex, c);
 		}
 	}
 }
@@ -80,7 +87,14 @@ bool SudokuPuzzle::solved() const {
 	return true;
 }
 
-
-void SudokuPuzzle::output() const {
-	cout << *this;
+std::ostream& operator<<(std::ostream& os, const SudokuPuzzle& p) {
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 9; j++) {
+			os << p.rows[i]->getCell(j)->getValue() << " ";
+		}
+		os << "\b" << std::endl;
+	}
+	return os;
 }
+
+

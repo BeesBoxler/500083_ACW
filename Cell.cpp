@@ -1,13 +1,9 @@
 #include "Cell.h"
 
 
-Cell::Cell() {
-	this->value = 0;
-}
+Cell::Cell(): value(0) {}
 
-Cell::Cell(int val) {
-	this->value = val;
-}
+Cell::Cell(int const val): value(val) {}
 
 bool Cell::tryUpdateValue() {
 	if (this->value != 0) return false;
@@ -25,9 +21,10 @@ bool Cell::tryUpdateValue() {
 
 void Cell::updatePossibleValues() {
 	if (this->value != 0) return;
+	int v;
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 9; j++) {
-			int v = groups[i]->cells[j]->value;
+			v = groups[i]->getCell(j)->value;
 			if (v == 0) continue;
 			possibleValues[v-1] = false;
 		}
@@ -35,14 +32,13 @@ void Cell::updatePossibleValues() {
 
 }
 
-void Cell::setCellGroup(const int i, const CellGroup* cg) {
-	groups[i] = cg;
-}
-
-void Cell::setValue(const int i) {
-	value = i;
-}
-
-int Cell::getValue() const{
-	return value;
+std::ostream& operator<<(std::ostream& os, const Cell* const cell) {
+	os << cell->value;
+	os << "=> {";
+	for (int j = 0; j < 9; j++) {
+		if (cell->possibleValues[j])
+			os << j + 1 << ",";
+	}
+	os << "\b}";
+	return os;
 }

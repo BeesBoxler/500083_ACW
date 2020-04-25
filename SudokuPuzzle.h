@@ -1,26 +1,22 @@
 #pragma once
-#include "Cell.h";
-#include "CellGroup.h";
+
+#include "Cell.h"
+#include "CellGroup.h"
 
 
 class SudokuPuzzle {
 public:
 	SudokuPuzzle();
+	SudokuPuzzle(const SudokuPuzzle&) = default;
 	~SudokuPuzzle();
 
 	void solve (const char filenameIn[]);
 
 	bool solved() const;
 
-	friend std::ostream& operator<<(std::ostream& os, const SudokuPuzzle p) {
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				os << p.rows[i]->cells[j]->getValue() << " ";
-			}
-			os << "\b" << std::endl;
-		}
-		return os;
-	}
+	friend std::ostream& operator<<(std::ostream& os, const SudokuPuzzle& p);
+
+	SudokuPuzzle& operator=(const SudokuPuzzle&) = default;
 
 private:
 	CellGroup* rows[9];
@@ -29,7 +25,9 @@ private:
 
 	Cell* cells[81] = {};
 
-	void output() const;
+	inline void output() const {
+		std::cout << *this;
+	}
 
 	void readPuzzle(const char filenameIn[]);
 

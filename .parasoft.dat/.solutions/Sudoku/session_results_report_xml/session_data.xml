@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><ResultsSession>
+   <SessionData configName="500083 rule set" enabledAnalysis="Static" enabledHandlers="com.parasoft.xtest.checkers.api.standards.factory;com.parasoft.xtest.checkers.api.scope.factory;com.parasoft.xtest.checkers.api.metrics.factory" hasViols="true" header="??:Sudoku:?? ??true??false??" runId="" startTime="1587822197145" tool="c++test">
+      <Authors>
+         <Author id="dev1" name="User"/>
+      </Authors>
+      <Selection>
+         <Res id="Sudoku/Sudoku"/>
+      </Selection>
+      <XmlDataFiles file0="C:\Users\User\Source\Repos\500083_ACW\.parasoft.dat\.solutions\Sudoku\session_results_report_xml\cs_violations.xml"/>
+   </SessionData>
+   <Locations>
+      <Loc fsPath="C:\Users\User\Source\Repos\500083_ACW\Cell.h" loc="Sudoku/Sudoku/Cell.h" projPath="Sudoku/Sudoku" project="Sudoku"/>
+      <Loc fsPath="C:\Users\User\Source\Repos\500083_ACW\SudokuPuzzle.h" loc="Sudoku/Sudoku/SudokuPuzzle.h" projPath="Sudoku/Sudoku" project="Sudoku"/>
+   </Locations>
+   <CodingStandards>
+      <HistoryData authTsks="2" authors="User" cvdLn="263" startTime="1587822197145" totLn="263" totTsks="2"/>
+      <TestedFilesDetails>
+         <Total name="Suppressed / Total" supp="0" total="2">
+            <Project name="Sudoku" supp="0" total="2">
+               <Res name="Cell.cpp" supp="0" total="0"/>
+               <Res name="Main.cpp" supp="0" total="0"/>
+               <Res loc="Sudoku/Sudoku/Cell.h" locType="sr" name="Cell.h" supp="0" total="1"/>
+               <Res loc="Sudoku/Sudoku/SudokuPuzzle.h" locType="sr" name="SudokuPuzzle.h" supp="0" total="1"/>
+               <Res name="CellGroup.h" supp="0" total="0"/>
+               <Res name="CellGroup.cpp" supp="0" total="0"/>
+               <Res name="SudokuPuzzle.cpp" supp="0" total="0"/>
+            </Project>
+         </Total>
+      </TestedFilesDetails>
+   </CodingStandards>
+   <MetricsNormal/>
+   <MetricsDetailed/>
+</ResultsSession>

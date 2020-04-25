@@ -5,10 +5,21 @@ class CellGroup
 {
 public:
 	CellGroup() {};
+	CellGroup(const CellGroup&) = default;
 	~CellGroup();
 
-	Cell* cells[9] = {};
-	static int GetBlockNumber(int col, int row);
+	static int GetBlockNumber(const int, const int);
 
+	void setCell(const int i, Cell* const v) {
+		cells[i] = v;
+	}
+	Cell* getCell(int i) const {
+		return cells[i];
+	}
+
+	CellGroup& operator=(const CellGroup&) = default;
+
+private:
+	Cell* cells[9] = {};
 };
 

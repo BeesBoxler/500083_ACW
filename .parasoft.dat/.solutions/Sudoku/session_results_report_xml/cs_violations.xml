@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mergePnt id="csViolations">
+  <StdViols>
+    <StdViol sev="3" ln="21" cat="OOP" hash="-555927324" urgent="true" tool="c++test" locType="sr" msg="Friend mechanism used for '&lt;&lt;'" lang="cpp" rule="OOP-11" config="1" auth="User" locStartln="21" locStartPos="30" locEndLn="21" locEndPos="31" locFile="Sudoku/Sudoku/Cell.h" />
+    <StdViol sev="3" ln="17" cat="OOP" hash="-1234961107" urgent="true" tool="c++test" locType="sr" msg="Friend mechanism used for '&lt;&lt;'" lang="cpp" rule="OOP-11" config="1" auth="User" locStartln="17" locStartPos="30" locEndLn="17" locEndPos="31" locFile="Sudoku/Sudoku/SudokuPuzzle.h" />
+  </StdViols>
+</mergePnt>
