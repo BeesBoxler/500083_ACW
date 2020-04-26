@@ -3,7 +3,6 @@
 
 CellGroup::~CellGroup()
 {
-	std::cout << "Deleting Cellgroup" << std::endl;
 	for (int i = 0; i < 9; i++) {
 		cells[i] = nullptr;
 	}

@@ -22,7 +22,7 @@ SudokuPuzzle::~SudokuPuzzle()
 	//cleanUp();
 }
 
-void SudokuPuzzle::cleanUp() {
+void SudokuPuzzle::cleanUp() const {
 	for (int i = 0; i < 81; i++) {
 		delete cells[i];
 	}
@@ -86,7 +86,7 @@ void SudokuPuzzle::solve(const char filenameIn[]) {
 			slowestTime = times[i];
 		average += times[i];
 	}
-	average = average / runs;
+	average /= runs;
 
 	std::cout << endl;
 	if (runs == 1) {
