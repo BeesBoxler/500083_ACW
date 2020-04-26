@@ -14,6 +14,14 @@ public:
 
 	bool solved() const;
 
+	int getGivenCells() const {
+		return givenCells;
+	}
+
+	void incrementGivenCells() {
+		givenCells++;
+	}
+
 	friend std::ostream& operator<<(std::ostream& os, const SudokuPuzzle& p);
 
 	SudokuPuzzle& operator=(const SudokuPuzzle&) = default;
@@ -25,10 +33,13 @@ private:
 
 	Cell* cells[81] = {};
 
+	int givenCells = 0;
+
 	inline void output() const {
 		std::cout << *this;
 	}
-
+	void cleanUp();
 	void readPuzzle(const char filenameIn[]);
+
 
 };

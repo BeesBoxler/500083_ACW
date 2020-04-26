@@ -19,37 +19,87 @@ SudokuPuzzle::SudokuPuzzle() {
 
 SudokuPuzzle::~SudokuPuzzle()
 {
+	//cleanUp();
+}
+
+void SudokuPuzzle::cleanUp() {
 	for (int i = 0; i < 81; i++) {
-		cells[i] = nullptr;
+		delete cells[i];
 	}
 }
 
 
 
-
 void SudokuPuzzle::solve(const char filenameIn[]) {
-	for (int n = 0; n < 15; n++) {
+	const int runs = 1;
+	unsigned long  times[runs];
+	unsigned long  fastestTime, slowestTime;
+	unsigned long long average = 0;
+	int loops = 0, candidateLookups = 0, solvedCells, zeroCells = 0;
+	bool stale = false, updatedThisRound, updated;
+
+	for (int n = 0; n < runs; n++) {
 		// Read puzzle from text file
 		readPuzzle(filenameIn);
 
 		// Get start time
 		const auto startTime = std::chrono::high_resolution_clock::now();
-		while (!solved()) {
-
+		while (!solved() & !stale) {
+			loops++;
+			updatedThisRound = false;
 			for (int i = 0; i < 81; i++) {
 				cells[i]->updatePossibleValues();
-				cells[i]->tryUpdateValue();
+				updated = cells[i]->tryUpdateValue();
+				updatedThisRound = updated | updatedThisRound;
 			}
+			stale = !updatedThisRound;
 		}
+		if (runs == 1)
+			for (int i = 0; i < 81; i++) {
+				candidateLookups += cells[i]->getLookupCount();
+			}
 		// Get end time
 		const auto endTime = std::chrono::high_resolution_clock::now();
 		const auto duration = (endTime - startTime).count();
 		// Sample timing output in nanoseconds
-		std::cout << duration << "ns" << std::endl;
+		times[n] = duration;
+		if (runs == 1)
+			std::cout << *this;
+		for (int i = 0; i < 81; i++)
+			if (cells[i]->getValue() == 0)
+				zeroCells++;
+		solvedCells = 81 - givenCells - zeroCells;
+		givenCells = 0;
+		cleanUp();
 	}
 
-	// Output the solved puzzle
-	output();
+	fastestTime = ULONG_MAX;
+	slowestTime = 0;
+	for (int i = 0; i < runs; i++) {
+		if (times[i] < fastestTime)
+			fastestTime = times[i];
+		else if (times[i] > slowestTime)
+			slowestTime = times[i];
+		average += times[i];
+	}
+	average = average / runs;
+
+	std::cout << endl;
+	if (runs == 1) {
+		std::cout << "Number of candidate Lookups: " << candidateLookups << endl;
+		std::cout << "Number of loops: " << loops << endl;
+
+	}
+	else {
+		std::cout << "Number of runs: " << runs << endl;
+		std::cout << "Average Time: " << average << endl;
+		std::cout << "Fastest Time: " << fastestTime << endl;
+		std::cout << "Slowest Time: " << slowestTime << endl;
+	}
+	std::cout << "Number of Solved Cells: " << solvedCells << endl;
+	std::cout << endl;
+
+
 }
 
 
@@ -62,6 +112,7 @@ void SudokuPuzzle::readPuzzle(const char filenameIn[]) {
 		for (int i = 0; i < 81; i++) {
 			file >> in;
 			Cell* const c = new Cell(in);
+			if (in != 0) incrementGivenCells();
 			cells[i] = c;
 			const int rowIndex = i / 9;
 			const int colIndex = i % 9;
@@ -72,7 +123,7 @@ void SudokuPuzzle::readPuzzle(const char filenameIn[]) {
 			c->setCellGroup(1, cols[colIndex]);
 			c->setCellGroup(2, blocks[blockIndex]);
 
-			rows[rowIndex]->setCell(colIndex,c);
+			rows[rowIndex]->setCell(colIndex, c);
 			cols[colIndex]->setCell(rowIndex, c);
 			blocks[blockIndex]->setCell(blockSpaceIndex, c);
 		}

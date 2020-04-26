@@ -3,6 +3,7 @@
 #include "CellGroup.h"
 #include <ostream>
 #include <iostream>
+#include <bitset>
 
 class Cell
 {
@@ -32,6 +33,15 @@ public:
 		return value;
 	}
 
+	bool getPossibleValue(const int i) {
+		lookups++;
+		return possibleValues[i];
+	}
+
+	int getLookupCount() const {
+		return lookups;
+	}
+
 	Cell& operator=(const Cell&) = default;
 
 private:
@@ -40,4 +50,5 @@ private:
 							  true,true,true,
 							  true,true,true};
 	int value;
+	int lookups = 0;
 };

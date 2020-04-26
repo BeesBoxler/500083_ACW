@@ -3,13 +3,20 @@
 
 Cell::Cell(): value(0) {}
 
+Cell::~Cell()
+{
+	for (int i = 0; i < 3; i++) {
+		groups[i] = nullptr;
+	}
+}
+
 Cell::Cell(int const val): value(val) {}
 
 bool Cell::tryUpdateValue() {
 	if (this->value != 0) return false;
 	int index = -1;
 	for (int i = 0; i < 9; i++) {
-		if (this->possibleValues[i])
+		if (this->getPossibleValue(i))
 			if (index == -1)
 				index = i;
 			else
