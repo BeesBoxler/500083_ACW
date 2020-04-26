@@ -37,6 +37,7 @@ void SudokuPuzzle::solve(const char filenameIn[]) {
 	unsigned long long average = 0;
 	int loops = 0, candidateLookups = 0, solvedCells, zeroCells = 0;
 	bool stale = false, updatedThisRound, updated;
+	ofstream out;
 
 	for (int n = 0; n < runs; n++) {
 		// Read puzzle from text file
@@ -54,20 +55,23 @@ void SudokuPuzzle::solve(const char filenameIn[]) {
 			}
 			stale = !updatedThisRound;
 		}
-		if (runs == 1)
-			for (int i = 0; i < 81; i++) {
-				candidateLookups += cells[i]->getLookupCount();
-			}
 		// Get end time
 		const auto endTime = std::chrono::high_resolution_clock::now();
 		const auto duration = (endTime - startTime).count();
 		// Sample timing output in nanoseconds
 		times[n] = duration;
-		if (runs == 1)
+		if (runs == 1){
 			std::cout << *this;
+			out = ofstream("sudoku_solution.txt");
+			out << *this;
+			out.close();
+		}
 		for (int i = 0; i < 81; i++)
 			if (cells[i]->getValue() == 0)
 				zeroCells++;
+		if (runs == 1)
+			for (int i = 0; i < 81; i++)
+				candidateLookups += cells[i]->getLookupCount();
 		solvedCells = 81 - givenCells - zeroCells;
 		givenCells = 0;
 		cleanUp();
@@ -143,7 +147,7 @@ std::ostream& operator<<(std::ostream& os, const SudokuPuzzle& p) {
 		for (int j = 0; j < 9; j++) {
 			os << p.rows[i]->getCell(j)->getValue() << " ";
 		}
-		os << "\b" << std::endl;
+		os << std::endl;
 	}
 	return os;
 }
