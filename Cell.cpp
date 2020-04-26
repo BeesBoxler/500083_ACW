@@ -39,13 +39,13 @@ void Cell::updatePossibleValues() {
 
 }
 
-std::ostream& operator<<(std::ostream& os, const Cell* const cell) {
-	os << cell->value;
-	os << "=> {";
-	for (int j = 0; j < 9; j++) {
-		if (cell->possibleValues[j])
-			os << j + 1 << ",";
-	}
-	os << "\b}";
-	return os;
-}
+//std::ostream& operator<<(std::ostream& os, const Cell* const cell) {
+//	os << cell->value;
+//	os << "=> {";
+//	for (int j = 0; j < 9; j++) {
+//		if (cell->possibleValues[j])
+//			os << j + 1 << ",";
+//	}
+//	os << "\b}";
+//	return os;
+//}

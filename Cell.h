@@ -19,7 +19,7 @@ public:
 	bool tryUpdateValue();
 
 
-	friend std::ostream& operator<<(std::ostream& os, const Cell* const cell);
+	//friend std::ostream& operator<<(std::ostream& os, const Cell* const cell);
 
 	void setCellGroup(const int i, const CellGroup* const cg) {
 		groups[i] = cg;

@@ -22,7 +22,7 @@ public:
 		givenCells++;
 	}
 
-	friend std::ostream& operator<<(std::ostream& os, const SudokuPuzzle& p);
+	/*friend std::ostream& operator<<(std::ostream& os, const SudokuPuzzle& p);*/
 
 	SudokuPuzzle& operator=(const SudokuPuzzle&) = default;
 
@@ -35,10 +35,8 @@ private:
 
 	int givenCells = 0;
 
-	inline void output() const {
-		std::cout << *this;
-	}
-	void cleanUp();
+	inline void output() const;
+	void cleanUp() const;
 	void readPuzzle(const char filenameIn[]);
 
 

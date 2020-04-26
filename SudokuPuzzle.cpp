@@ -22,6 +22,18 @@ SudokuPuzzle::~SudokuPuzzle()
 	//cleanUp();
 }
 
+void SudokuPuzzle::output() const
+{
+	ofstream out("sudoku_solution.txt");
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 9; j++) {
+			out << rows[i]->getCell(j)->getValue() << " ";
+		}
+		out << std::endl;
+	}
+	out.close();
+}
+
 void SudokuPuzzle::cleanUp() const {
 	for (int i = 0; i < 81; i++) {
 		delete cells[i];
@@ -60,11 +72,8 @@ void SudokuPuzzle::solve(const char filenameIn[]) {
 		const auto duration = (endTime - startTime).count();
 		// Sample timing output in nanoseconds
 		times[n] = duration;
-		if (runs == 1){
-			std::cout << *this;
-			out = ofstream("sudoku_solution.txt");
-			out << *this;
-			out.close();
+		if (runs == 1) {
+			output();
 		}
 		for (int i = 0; i < 81; i++)
 			if (cells[i]->getValue() == 0)
@@ -141,15 +150,15 @@ bool SudokuPuzzle::solved() const {
 	}
 	return true;
 }
-
-std::ostream& operator<<(std::ostream& os, const SudokuPuzzle& p) {
-	for (int i = 0; i < 9; i++) {
-		for (int j = 0; j < 9; j++) {
-			os << p.rows[i]->getCell(j)->getValue() << " ";
-		}
-		os << std::endl;
-	}
-	return os;
-}
+//
+//std::ostream& SudokuPuzzle::operator<<(std::ostream& os) {
+//	for (int i = 0; i < 9; i++) {
+//		for (int j = 0; j < 9; j++) {
+//			os << rows[i]->getCell(j)->getValue() << " ";
+//		}
+//		os << std::endl;
+//	}
+//	return os;
+//}
 
 
