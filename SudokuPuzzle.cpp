@@ -49,7 +49,6 @@ void SudokuPuzzle::solve(const char filenameIn[]) {
 	unsigned long long average = 0;
 	int loops = 0, candidateLookups = 0, solvedCells, zeroCells = 0;
 	bool stale = false, updatedThisRound, updated;
-	ofstream out;
 
 	for (int n = 0; n < runs; n++) {
 		// Read puzzle from text file

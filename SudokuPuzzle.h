@@ -35,7 +35,7 @@ private:
 
 	int givenCells = 0;
 
-	inline void output() const;
+	void output() const;
 	void cleanUp() const;
 	void readPuzzle(const char filenameIn[]);
 
